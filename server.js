@@ -9,7 +9,7 @@ var express = require('express'),                    // Express Web 框架
 var facebookAuth = {
       'clientID'      : '902102522477336',     // 你的 Facebook App ID
       'clientSecret'  : '267a3fdc14c82f38f5b45ed333cc95ef',     // 你的 Facebook App Secret
-      'callbackURL'   : 'http://localhost:8099/auth/facebook/callback'  // 登录成功后 Facebook 回调的地址
+      'callbackURL'   : 'https://re01.onrender.com/auth/facebook/callback'  // 登录成功后 Facebook 回调的地址
 };
 
 // 用于临时存放登录后的用户信息（实际项目中通常存数据库，这里简化用对象）
