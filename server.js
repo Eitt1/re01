@@ -7,8 +7,8 @@ var express = require('express'),                    // Express Web 框架
 
 // Facebook 应用信息（需要在 https://developers.facebook.com/apps/ 创建应用后填写）
 var facebookAuth = {
-      'clientID'      : '',     // 你的 Facebook App ID
-      'clientSecret'  : '',     // 你的 Facebook App Secret
+      'clientID'      : '3736274196677931',     // 你的 Facebook App ID
+      'clientSecret'  : 'ce8840d46db118a4655065ceffc22fbd',     // 你的 Facebook App Secret
       'callbackURL'   : 'http://localhost:8099/auth/facebook/callback'  // 登录成功后 Facebook 回调的地址
 };
 
