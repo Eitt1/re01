@@ -1,1 +1,221 @@
+/* 全局重置与背景 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    padding-top: 80px; /* 为固定导航栏留出空间 */
+}
+
+/* === 统一导航栏 (Taskbar) === */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.nav-brand {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #667eea;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.nav-item:hover, .nav-item.active {
+    background: #667eea;
+    color: white;
+}
+
+/* === 通用容器 === */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* === 卡片网格 (List页面) === */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover { transform: translateY(-5px); }
+
+.card-icon {
+    height: 60px; width: 60px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 15px;
+}
+.mp3-bg { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
+.mp4-bg { background: linear-gradient(135deg, #4facfe, #00f2fe); color: white; }
+
+.card h3 { margin-bottom: 5px; font-size: 1.1rem; }
+.card p { color: #666; font-size: 0.9rem; margin-bottom: 15px; flex-grow: 1; }
+
+/* === 表单与详情容器 (Create/Edit/Details) === */
+.form-box {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+}
+
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; color: #667eea; font-weight: bold; }
+.form-group input[type="text"], 
+.form-group textarea {
+    width: 100%; padding: 12px;
+    border: 2px solid #eee; border-radius: 10px;
+    outline: none; transition: 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus { border-color: #667eea; }
+
+/* === 按钮 === */
+.btn-group { display: flex; gap: 10px; margin-top: 10px; }
+.btn {
+    padding: 8px 20px; border-radius: 8px;
+    text-decoration: none; color: white; font-size: 0.9rem;
+    border: none; cursor: pointer; transition: 0.3s; text-align: center;
+}
+.btn-block { display: block; width: 100%; padding: 12px; border-radius: 25px; font-size: 1rem; margin-top: 10px;}
+
+.btn-primary { background: #667eea; }
+.btn-warning { background: #ffa502; }
+.btn-danger  { background: #ff4757; }
+.btn-secondary { background: #e0e0e0; color: #333; }
+
+.btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+/* === Facebook 登录按钮 === */
+.btn-facebook {
+    background-color: #1877F2;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.3s;
+}
+.btn-facebook:hover {
+    background-color: #166fe5;
+}
+
+/* === 用户头像与下拉菜单 (User Menu) === */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-avatar:hover {
+    transform: scale(1.1);
+}
+
+/* 下拉菜单容器 */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    z-index: 2000;
+    overflow: hidden;
+    animation: fadeIn 0.2s;
+}
+
+/* 简单的 Hover 显示逻辑 (也可以用JS点击控制) */
+.user-menu:hover .dropdown-content {
+    display: block;
+}
+
+.user-info {
+    padding: 12px 16px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.dropdown-item {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+    color: #667eea;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
