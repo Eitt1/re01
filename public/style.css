@@ -1,14 +1,11 @@
-/* 全局重置与背景 */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     color: #333;
-    padding-top: 80px; /* 为固定导航栏留出空间 */
+    padding-top: 80px; 
 }
-
-/* === 统一导航栏 (Taskbar) === */
 .navbar {
     position: fixed;
     top: 0;
@@ -57,14 +54,12 @@ body {
     color: white;
 }
 
-/* === 通用容器 === */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* === 卡片网格 (List页面) === */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -95,7 +90,6 @@ body {
 .card h3 { margin-bottom: 5px; font-size: 1.1rem; }
 .card p { color: #666; font-size: 0.9rem; margin-bottom: 15px; flex-grow: 1; }
 
-/* === 表单与详情容器 (Create/Edit/Details) === */
 .form-box {
     background: white;
     border-radius: 20px;
@@ -115,7 +109,6 @@ body {
 }
 .form-group input:focus, .form-group textarea:focus { border-color: #667eea; }
 
-/* === 按钮 === */
 .btn-group { display: flex; gap: 10px; margin-top: 10px; }
 .btn {
     padding: 8px 20px; border-radius: 8px;
@@ -131,7 +124,6 @@ body {
 
 .btn:hover { opacity: 0.9; transform: scale(1.02); }
 
-/* === Facebook 登录按钮 === */
 .btn-facebook {
     background-color: #1877F2;
     color: white;
@@ -146,12 +138,11 @@ body {
     background-color: #166fe5;
 }
 
-/* === 用户头像与下拉菜单 (User Menu) === */
 .user-menu {
     position: relative;
-    display: flex;       /* 确保垂直居中 */
+    display: flex;     
     align-items: center;
-    height: 100%;        /* 让容器高度填满导航栏，增大接触面积 */
+    height: 100%;     
     cursor: pointer;
 }
 
@@ -176,34 +167,30 @@ body {
     transform: scale(1.1);
 }
 
-/* 下拉菜单容器 */
 .dropdown-content {
-    display: none;       /* 默认隐藏 */
+    display: none;       
     position: absolute;
     right: 0;
-    top: 50px;           /* 距离顶部的距离 */
+    top: 50px;
     background-color: white;
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     border-radius: 10px;
     z-index: 2000;
-    overflow: visible;   /* 关键：允许伪元素超出盒子范围 */
+    overflow: visible;  
     animation: fadeIn 0.2s;
 }
 
-/* !!! 关键修复：透明的填充层 !!! */
-/* 这段代码在菜单上方创建了一个透明的区域，连接了头像和菜单 */
 .dropdown-content::before {
     content: "";
     position: absolute;
-    top: -20px;    /* 向上延伸 20px，填补空隙 */
+    top: -20px;    
     left: 0;
     width: 100%;
-    height: 20px;  /* 高度足够覆盖空隙 */
-    background: transparent; /* 透明，看不见但鼠标能感应到 */
+    height: 20px; 
+    background: transparent; 
 }
 
-/* 只要鼠标在 user-menu 范围内（包括那个透明层），菜单就显示 */
 .user-menu:hover .dropdown-content {
     display: block;
 }
