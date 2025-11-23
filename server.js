@@ -7,9 +7,9 @@ const session = require('express-session');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 
-// === 1. Passport & Session 配置 (必须在路由之前) ===
+
 app.use(session({
-    secret: "MediaCloudSecretKey", // 建议修改为复杂的随机字符串
+    secret: "MediaCloudSecretKey", 
     resave: true,
     saveUninitialized: true
 }));
@@ -17,14 +17,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Facebook 策略配置
+
 const facebookAuth = {
-    'clientID': '902102522477336', // 替换为你的 Facebook App ID
-    'clientSecret': '267a3fdc14c82f38f5b45ed333cc95ef', // 替换为你的 Facebook App Secret
+    'clientID': '902102522477336', 
+    'clientSecret': '267a3fdc14c82f38f5b45ed333cc95ef', 
     'callbackURL': 'https://re01.onrender.com/auth/facebook/callback'
 };
 
-// 序列化用户
+
 passport.serializeUser(function (user, done) {
     done(null, user);
 });
@@ -37,32 +37,32 @@ passport.use(new FacebookStrategy({
     clientID: facebookAuth.clientID,
     clientSecret: facebookAuth.clientSecret,
     callbackURL: facebookAuth.callbackURL,
-    profileFields: ['id', 'displayName', 'photos'] // 获取头像需要这个字段
+    profileFields: ['id', 'displayName', 'photos'] 
 }, function (token, refreshToken, profile, done) {
     // 构建用户对象
     const user = {
         id: profile.id,
         name: profile.displayName,
-        photo: profile.photos ? profile.photos[0].value : null, // 获取头像URL
+        photo: profile.photos ? profile.photos[0].value : null, 
         type: 'facebook'
     };
     return done(null, user);
 }));
 
-// === 2. 基础中间件 ===
+
 app.set('view engine', 'ejs');
 app.use('/public', express.static('public'));
 
-// !!! 关键中间件：将 user 对象注入到所有模板中 !!!
+
 app.use((req, res, next) => {
     res.locals.user = req.user || null;
     next();
 });
 
-// Formidable 用于处理文件上传
+
 app.use(formidable());
 
-// === 3. 数据库配置 ===
+
 const mongourl = 'mongodb+srv://heying:fjk12380@cluster0.zrabk1y.mongodb.net/media_cloud?retryWrites=true&w=majority';
 const client = new MongoClient(mongourl);
 const dbName = 'media_cloud';
@@ -75,15 +75,10 @@ const getDB = async () => {
     return client.db(dbName);
 };
 
-// === 4. 路由逻辑 ===
-
-// === RESTful API Services (无需身份验证) ===
-
-// 1. GET (Read) - 获取所有或搜索
 app.get('/api/files', async (req, res) => {
     const db = await getDB();
     const query = {};
-    // 支持简单搜索: /api/files?filename=xxx
+    
     if (req.query.filename) {
         query.filename = { $regex: req.query.filename, $options: 'i' };
     }
@@ -91,8 +86,6 @@ app.get('/api/files', async (req, res) => {
     res.status(200).json(docs);
 });
 
-// 2. POST (Create) - 创建新文件
-// 注意：API通常接收JSON，这里假设客户端发JSON或Form
 app.post('/api/files', async (req, res) => {
     const db = await getDB();
     try {
@@ -101,7 +94,6 @@ app.post('/api/files', async (req, res) => {
             description: req.fields.description || '',
             createdAt: new Date()
         };
-        // 简化API处理，暂时忽略文件二进制流，只存元数据演示
         const result = await db.collection(collectionName).insertOne(newDoc);
         res.status(201).json({ message: 'Created', id: result.insertedId });
     } catch (e) {
@@ -109,7 +101,6 @@ app.post('/api/files', async (req, res) => {
     }
 });
 
-// 3. PUT (Update) - 更新文件
 app.put('/api/files/:id', async (req, res) => {
     const db = await getDB();
     try {
@@ -131,7 +122,6 @@ app.put('/api/files/:id', async (req, res) => {
     }
 });
 
-// 4. DELETE (Delete) - 删除文件
 app.delete('/api/files/:id', async (req, res) => {
     const db = await getDB();
     try {
@@ -143,17 +133,13 @@ app.delete('/api/files/:id', async (req, res) => {
     }
 });
 
-
-// 辅助函数：确保已登录 (核心保护逻辑)
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    // 未登录，强制重定向到登录页
     res.redirect('/login');
 }
 
-// --- Auth Routes (认证路由) ---
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
 app.get("/auth/facebook/callback",
@@ -166,13 +152,10 @@ app.get("/auth/facebook/callback",
 app.get("/logout", (req, res, next) => {
     req.logout(function(err) {
         if (err) { return next(err); }
-        res.redirect('/login'); // 登出后回到登录页
+        res.redirect('/login'); 
     });
 });
 
-// --- 业务路由 ---
-
-// 1. 登录页 (如果已登录，直接跳列表，防止重复登录)
 app.get('/login', (req, res) => {
     if (req.isAuthenticated()) {
         return res.redirect('/list');
@@ -180,7 +163,6 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
-// 2. 根目录 (默认入口 -> 检查登录)
 app.get('/', (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect('/list');
@@ -189,14 +171,12 @@ app.get('/', (req, res) => {
     }
 });
 
-// 3. 列表页 (首页) - 现在受到保护
 app.get('/list', isLoggedIn, async (req, res) => {
     const db = await getDB();
     const docs = await db.collection(collectionName).find({}).toArray();
     res.render('list', { files: docs });
 });
 
-// 4. 上传页 (Create) - 受到保护
 app.get('/create', isLoggedIn, (req, res) => {
     res.render('create');
 });
@@ -207,7 +187,7 @@ app.post('/create', isLoggedIn, async (req, res) => {
         filename: req.fields.filename || 'Notdefine',
         description: req.fields.description || '',
         uploadedAt: new Date(),
-        uploader: req.user.name // 记录上传者名字
+        uploader: req.user.name 
     };
 
     if (req.files.filetoupload && req.files.filetoupload.size > 0) {
@@ -221,7 +201,7 @@ app.post('/create', isLoggedIn, async (req, res) => {
     res.redirect('/list');
 });
 
-// 5. 详情页 - 受到保护
+
 app.get('/details', isLoggedIn, async (req, res) => {
     const db = await getDB();
     try {
@@ -232,7 +212,6 @@ app.get('/details', isLoggedIn, async (req, res) => {
     }
 });
 
-// 6. 编辑页 - 受到保护
 app.get('/edit', isLoggedIn, async (req, res) => {
     const db = await getDB();
     try {
@@ -266,7 +245,6 @@ app.post('/update', isLoggedIn, async (req, res) => {
     }
 });
 
-// 7. 删除页 - 受到保护
 app.get('/delete', isLoggedIn, async (req, res) => {
     const db = await getDB();
     try {
@@ -287,7 +265,6 @@ app.post('/delete', isLoggedIn, async (req, res) => {
     }
 });
 
-// 兜底路由 - 任何未定义的路由都跳回首页(会被首页重定向逻辑捕获)
 app.get(/(.*)/, (req, res) => {
     res.redirect('/');
 });
@@ -295,5 +272,6 @@ app.get(/(.*)/, (req, res) => {
 
 const port = process.env.PORT || 8099;
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+
 
 
