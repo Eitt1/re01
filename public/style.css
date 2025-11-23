@@ -30,11 +30,9 @@ body {
 
 
 .nav-brand img {
-    height: 50px;        
-    width: auto;        
-    max-width: 200px;    
-    object-fit: contain; 
-    display: block;
+    max-height: 45px; 
+    width: auto;     
+    display: block;   
 }
 
 
