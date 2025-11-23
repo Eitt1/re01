@@ -19,8 +19,8 @@ app.use(passport.session());
 
 
 const facebookAuth = {
-    'clientID': '3736274196677931', 
-    'clientSecret': 'ce8840d46db118a4655065ceffc22fbd', 
+    'clientID': '834176075664884', 
+    'clientSecret': 'a01e9524882a0e386dcb092c5fa3a9f8', 
     'callbackURL': 'https://comp3810sef-group63.onrender.com/auth/facebook/callback'
 };
 
@@ -272,6 +272,7 @@ app.get(/(.*)/, (req, res) => {
 
 const port = process.env.PORT || 8099;
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+
 
 
 
