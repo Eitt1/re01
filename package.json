@@ -1,7 +1,7 @@
 {
-    "name": "server",
-    "description": "MVC Booking Project Demo",
-    "author": "Cloud381 Instructor",
+    "name": "Cloud Media Drive",
+    "description": "Cloud Media Drive",
+    "author": "Cloud61",
     "version": "0.0.1",
     "dependencies": {
         "bcrypt": "^6.0.0",
@@ -25,6 +25,7 @@
         "start": "node server"
     }
 }
+
 
 
 
