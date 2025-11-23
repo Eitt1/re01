@@ -2,18 +2,12 @@
 <html>
 <head>
     <title>Info - Media Drive</title>
-    <!-- 引入全局样式，保持背景和字体一致 -->
     <link rel="stylesheet" href="/public/style.css">
 </head>
 <body>
-    <!-- 引入通用导航栏 -->
     <%- include('partials/navbar', { page: '' }) %>
-
-    <!-- 使用 .form-box 让提示框居中且美观，和登录/上传页保持一致 -->
     <div class="form-box" style="text-align: center; margin-top: 100px;">
         <div style="font-size: 4rem; margin-bottom: 20px;">ℹ️</div>
-        
-        <!-- 显示来自 server.js 的错误信息 -->
         <h2 style="color: #667eea; margin-bottom: 20px;">
             <%= message %>
         </h2>
