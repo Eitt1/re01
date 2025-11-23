@@ -5,32 +5,8 @@
     <link rel="stylesheet" href="/public/style.css">
 </head>
 <body>
-    <!-- 导航栏逻辑见下文通用部分，这里为了展示登录页特定内容 -->
-    <%- include('partials/navbar', { page: 'login' }) %>
-
     <div class="form-box">
         <h2 style="text-align: center;">User Login</h2>
-        <p style="text-align: center; margin-bottom: 20px; color: #666;">Choose your login method</p>
-        
-        <!-- 原有的表单保留，但不是重点 -->
-        <form action="/list" method="GET">
-            <div class="form-group">
-                <label>Account</label>
-                <input type="text" name="username" placeholder="Student ID">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Regular Login</button>
-        </form>
-
-        <div style="display: flex; align-items: center; margin: 20px 0;">
-            <div style="flex: 1; height: 1px; background: #eee;"></div>
-            <span style="padding: 0 10px; color: #999; font-size: 0.8rem;">OR</span>
-            <div style="flex: 1; height: 1px; background: #eee;"></div>
-        </div>
-
         <!-- 新增的 Facebook 登录按钮 -->
         <a href="/auth/facebook" class="btn btn-block btn-facebook">
             <!-- 简单的 Facebook 图标 SVG -->
