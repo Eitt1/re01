@@ -19,8 +19,8 @@ app.use(passport.session());
 
 // Facebook 策略配置
 const facebookAuth = {
-    'clientID': '3736274196677931', // 替换为你的 Facebook App ID
-    'clientSecret': 'ce8840d46db118a4655065ceffc22fbd', // 替换为你的 Facebook App Secret
+    'clientID': '902102522477336', // 替换为你的 Facebook App ID
+    'clientSecret': '267a3fdc14c82f38f5b45ed333cc95ef', // 替换为你的 Facebook App Secret
     'callbackURL': 'https://re01.onrender.com/auth/facebook/callback'
 };
 
@@ -295,4 +295,5 @@ app.get(/(.*)/, (req, res) => {
 
 const port = process.env.PORT || 8099;
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+
 
