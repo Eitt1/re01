@@ -14,7 +14,6 @@
         <h2><%= file.filename %></h2>
         <p style="color: #666; margin: 10px 0 20px;"><%= file.description %></p>
 
-        <!-- 播放器逻辑 -->
         <div style="margin: 20px 0; background: #f8f9fa; padding: 10px; border-radius: 10px;">
             <% if (file.mimetype && file.mimetype.includes('audio')) { %>
                 <audio controls style="width: 100%;">
