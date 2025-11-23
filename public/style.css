@@ -146,7 +146,10 @@ body {
 /* === 用户头像与下拉菜单 (User Menu) === */
 .user-menu {
     position: relative;
-    display: inline-block;
+    display: flex;       /* 确保垂直居中 */
+    align-items: center;
+    height: 100%;        /* 让容器高度填满导航栏，增大接触面积 */
+    cursor: pointer;
 }
 
 .user-avatar {
@@ -154,7 +157,6 @@ body {
     height: 40px;
     border-radius: 50%;
     background: #ddd;
-    cursor: pointer;
     overflow: hidden;
     border: 2px solid white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -173,20 +175,32 @@ body {
 
 /* 下拉菜单容器 */
 .dropdown-content {
-    display: none;
+    display: none;       /* 默认隐藏 */
     position: absolute;
     right: 0;
-    top: 50px;
+    top: 50px;           /* 距离顶部的距离 */
     background-color: white;
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     border-radius: 10px;
     z-index: 2000;
-    overflow: hidden;
+    overflow: visible;   /* 关键：允许伪元素超出盒子范围 */
     animation: fadeIn 0.2s;
 }
 
-/* 简单的 Hover 显示逻辑 (也可以用JS点击控制) */
+/* !!! 关键修复：透明的填充层 !!! */
+/* 这段代码在菜单上方创建了一个透明的区域，连接了头像和菜单 */
+.dropdown-content::before {
+    content: "";
+    position: absolute;
+    top: -20px;    /* 向上延伸 20px，填补空隙 */
+    left: 0;
+    width: 100%;
+    height: 20px;  /* 高度足够覆盖空隙 */
+    background: transparent; /* 透明，看不见但鼠标能感应到 */
+}
+
+/* 只要鼠标在 user-menu 范围内（包括那个透明层），菜单就显示 */
 .user-menu:hover .dropdown-content {
     display: block;
 }
@@ -198,6 +212,7 @@ body {
     font-weight: bold;
     color: #333;
     font-size: 0.9rem;
+    cursor: default;
 }
 
 .dropdown-item {
@@ -218,4 +233,3 @@ body {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
