@@ -1,1 +1,41 @@
+<nav class="navbar">
+    <a href="/list" class="nav-brand">☁️ Media Cloud</a>
+    
+    <div class="nav-links">
+        <!-- 1. List 链接 -->
+        <a href="/list" class="nav-item <%= (typeof page !== 'undefined' && page === 'list') ? 'active' : '' %>">
+            List
+        </a>
 
+        <!-- 2. Upload 链接 -->
+        <a href="/create" class="nav-item <%= (typeof page !== 'undefined' && page === 'create') ? 'active' : '' %>">
+            Upload
+        </a>
+
+        <!-- 3. 用户状态判断 -->
+        <% if (typeof user !== 'undefined' && user) { %>
+            
+            <!-- === 已登录状态 === -->
+            <div class="user-menu">
+                <div class="user-avatar">
+                    <img src="<%= user.photo || 'https://ui-avatars.com/api/?background=random&name=' + user.name %>" alt="User">
+                </div>
+                
+                <div class="dropdown-content">
+                    <div class="user-info">Hi, <%= user.name %></div>
+                    <a href="/logout" class="dropdown-item" style="color: #ff4757;">
+                        Logout ➜
+                    </a>
+                </div>
+            </div>
+
+        <% } else { %>
+            
+            <!-- === 未登录状态 === -->
+            <a href="/login" class="nav-item <%= (typeof page !== 'undefined' && page === 'login') ? 'active' : '' %>">
+                Login
+            </a>
+
+        <% } %>
+    </div>
+</nav>
