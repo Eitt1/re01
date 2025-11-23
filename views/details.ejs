@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Details - Media Cloud</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+     <%- include('partials/navbar', { page: '' }) %>
+
+    <div class="form-box" style="text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 20px;">
+            <%= file.mimetype && file.mimetype.includes('audio') ? '🎵' : '🎬' %>
+        </div>
+        <h2><%= file.filename %></h2>
+        <p style="color: #666; margin: 10px 0 20px;"><%= file.description %></p>
+
+        <!-- 播放器逻辑 -->
+        <div style="margin: 20px 0; background: #f8f9fa; padding: 10px; border-radius: 10px;">
+            <% if (file.mimetype && file.mimetype.includes('audio')) { %>
+                <audio controls style="width: 100%;">
+                    <source src="data:<%= file.mimetype %>;base64,<%= file.file %>">
+                </audio>
+            <% } else if (file.mimetype && file.mimetype.includes('video')) { %>
+                <video controls style="width: 100%; border-radius: 10px;">
+                    <source src="data:<%= file.mimetype %>;base64,<%= file.file %>">
+                </video>
+            <% } %>
+        </div>
+
+        <div class="btn-group" style="justify-content: center;">
+            <a href="/edit?_id=<%= file._id %>" class="btn btn-warning">Edit</a>
+            <a href="/list" class="btn btn-secondary">Home</a>
+        </div>
+    </div>
+</body>
+</html>
+

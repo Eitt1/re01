@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit - Media Cloud</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+     <%- include('partials/navbar', { page: '' }) %>
+
+    <div class="form-box">
+        <h2>✏️ Edit: <%= file.filename %></h2>
+        <form action="/update" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_id" value="<%= file._id %>">
+            
+            <div class="form-group">
+                <label>New title</label>
+                <input type="text" name="filename" value="<%= file.filename %>">
+            </div>
+            <div class="form-group">
+                <label>New discription</label>
+                <textarea name="description" rows="3"><%= file.description %></textarea>
+            </div>
+            <div class="form-group">
+                <label>Replace File</label>
+                <input type="file" name="filetoupload" accept=".mp3,.mp4">
+                <small style="color: #999;">If not uploaded, the original file will be retained.</small>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Save</button>
+            <a href="/list" class="btn btn-secondary btn-block" style="background: #eee;">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
+

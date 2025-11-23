@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete - Media Cloud</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+     <%- include('partials/navbar', { page: '' }) %>
+
+    <div class="form-box" style="text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 10px;">⚠️</div>
+        <h2 style="color: #ff4757;">Sure Delete？</h2>
+        <p style="margin: 20px 0;">
+            Are you sure to delete <strong><%= file.filename %></strong> ？<br>
+            This operation cannot be undone.
+        </p>
+
+        <form action="/delete" method="POST">
+            <input type="hidden" name="_id" value="<%= file._id %>">
+            <div class="btn-group">
+                <button type="submit" class="btn btn-danger" style="flex:1">Yes, permanently delete.</button>
+                <a href="/list" class="btn btn-secondary" style="flex:1">Wrong click.</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drive list- Media Cloud</title>
+    <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+    <!-- 统一导航栏 -->
+     <%- include('partials/navbar', { page: 'list' }) %>
+
+    <div class="container">
+        <div style="text-align: center; color: white; margin-bottom: 30px;">
+            <h1>My Media Drive</h1>
+        </div>
+
+        <div class="grid">
+            <% files.forEach(function(file) { %>
+                <div class="card">
+                    <div class="card-icon <%= file.mimetype && file.mimetype.includes('audio') ? 'mp3-bg' : 'mp4-bg' %>">
+                        <%= file.mimetype && file.mimetype.includes('audio') ? '🎵' : '🎬' %>
+                    </div>
+                    <h3><%= file.filename %></h3>
+                    <p><%= file.description || 'No description' %></p>
+                    <div class="btn-group">
+                        <a href="/details?_id=<%= file._id %>" class="btn btn-primary" style="flex:1">Play</a>
+                        <a href="/delete?_id=<%= file._id %>" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</body>
+</html>
+
