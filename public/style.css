@@ -26,14 +26,17 @@ body {
 }
 
 .nav-brand {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #667eea;
-    text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 10px;
+    text-decoration: none;
 }
+
+.nav-brand img {
+    max-height: 45px; 
+    width: auto;     
+    display: block;   
+}
+
 
 .nav-links {
     display: flex;
