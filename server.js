@@ -142,11 +142,6 @@ function isLoggedIn(req, res, next) {
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
-app.get("/auth/facebook", 
-    passport.authenticate("facebook")
-);
-
-
 app.get("/auth/facebook/callback",
     passport.authenticate("facebook", { 
         failureRedirect: "/login"
@@ -280,6 +275,7 @@ app.get(/(.*)/, (req, res) => {
 
 const port = process.env.PORT || 8099;
 app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+
 
 
 
